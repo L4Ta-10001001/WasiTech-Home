@@ -76,7 +76,7 @@ Abre index.html en tu navegador o usa un servidor local como Live Server.
 
 4️⃣ Acceder al Sistema
 
-    📌 API REST: http://localhost:8080/api/
+    📌 API REST: http://localhost:8080/
     📌 Dashboard: http://localhost:8080/admin/dashboard
     
 ## 📊 **Principales Funcionalidades**  
@@ -107,8 +107,8 @@ Abre index.html en tu navegador o usa un servidor local como Live Server.
 ---
 
 ## 📩 **Contacto y Soporte**  
-📧 Email: `contacto@wasitech.com`  
-📌 [Repositorio en GitHub](https://github.com/tu-usuario/WasiTech-Home)  
+📧 Email: `esherrera@uce.edu.ec`  - `jponce@uce.edu.ec`
+📌 [Repositorio en GitHub](https://github.com/H3rr3r4Er1k/WasiTech-Home)  
 
 💚 **¡Gracias por apoyar la sostenibilidad!** 🌱♻️🏡  
 
