@@ -64,12 +64,13 @@ WasiTech-Home/
 ```sh
 git clone https://github.com/tu-usuario/WasiTech-Home.git
 cd WasiTech-Home
-
+```
 2️⃣ Configurar el Backend
+```sh
 cd backend
 mvn clean install
 mvn spring-boot:run
-
+```
 3️⃣ Configurar el Frontend
 Abre index.html en tu navegador o usa un servidor local como Live Server.
 
