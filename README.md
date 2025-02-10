@@ -51,7 +51,7 @@ WasiTech-Home/
 │   ├── index.html  # Página principal
 │── database/  # Scripts y configuraciones de la base de datos
 │── README.md  # Documentación del proyecto
----
+```
 ## 🔥 **Instalación y Configuración**  
 
 ### 📌 **Requisitos Previos**  
