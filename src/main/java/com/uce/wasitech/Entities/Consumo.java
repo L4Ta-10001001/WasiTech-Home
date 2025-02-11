@@ -7,9 +7,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
+import java.time.LocalDate;
 
 @Entity
-public class Producto {
+public class Consumo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,12 +22,17 @@ public class Producto {
 
     @Getter
     @Setter
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "tipoRecurso") //Energía, Agua, Gas, etc.
+    private String tipoRecurso;
 
     @Getter
     @Setter
-    @Column(name = "precio")
-    private String precio;
+    @Column(name = "cantidad") //kWh, Litros, m³, kg
+    private String cantidad;
+
+    @Getter
+    @Setter
+    @Column(name = "fechaRegistro")
+    private LocalDate fechaRegistro;
 
 }
