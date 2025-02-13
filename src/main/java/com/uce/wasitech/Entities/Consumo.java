@@ -12,27 +12,27 @@ import java.time.LocalDate;
 @Entity
 public class Consumo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Getter
-    @Setter
-    @Column(name = "id")
-    private Long id;
+  @Getter
+  @Setter
+  @Column(name = "id")
+  private Long id;
 
-    @Getter
-    @Setter
-    @Column(name = "tipoRecurso") //Energía, Agua, Gas, etc.
-    private String tipoRecurso;
+  @Getter
+  @Setter
+  @Column(name = "tipoRecurso") // Energía, Agua, Gas, etc.
+  private String tipoRecurso;
 
-    @Getter
-    @Setter
-    @Column(name = "cantidad") //kWh, Litros, m³, kg
-    private String cantidad;
+  @Getter
+  @Setter
+  @Column(name = "cantidad") // kWh, Litros, m³, kg
+  private String cantidad;
 
-    @Getter
-    @Setter
-    @Column(name = "fechaRegistro")
-    private LocalDate fechaRegistro;
+  @Getter
+  @Setter
+  @Column(name = "fechaRegistro")
+  private LocalDate fechaRegistro;
 
 }
