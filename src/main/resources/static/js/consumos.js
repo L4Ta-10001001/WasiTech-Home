@@ -1,16 +1,6 @@
-// Call the dataTables jQuery plugin
 $(document).ready(function () {
   cargarConsumos();
-  $("#consumos").DataTable();
-  //actualizarEmailDelUsuario();
 });
-
-//function actualizarEmailDelUsuario() {
-//  const elemento = document.getElementById("txt-email-usuario");
-//  if (elemento) {
-//    elemento.textContent = localStorage.email;
-//  }
-//}
 
 async function cargarConsumos() {
   try {
@@ -18,31 +8,41 @@ async function cargarConsumos() {
       method: "GET",
       headers: getHeaders(),
     });
+
     if (!request.ok) {
       throw new Error("Error al cargar consumos");
     }
-    const consumos = await request.json();
 
+    const consumos = await request.json();
     let listadoHtml = "";
+
     for (let consumo of consumos) {
-      let botonEliminar =
-        '<a href="#" onclick="eliminarConsumo(' +
-        consumo.id +
-        ')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>';
-      let telefonoTexto = consumo.telefono == null ? "-" : consumo.telefono;
-      let consumoHtml =
-        "<tr><td>" +
-        consumo.id +
-        "</td><td>" +
-        consumo.tipoRecurso+
-        "</td><td> " +
-        consumo.cantidad+
-        "</td><td>" +
-        consumo.fechaRegistro +
-        "</td></tr>";
+      let fechaRegistro = new Date(consumo.fechaRegistro).toLocaleDateString();
+
+      let cantidadConsumida = consumo.cantidadConsumida !== undefined ? consumo.cantidadConsumida : "-";
+      let costoEstimado = consumo.costoEstimado !== null ? consumo.costoEstimado : "-";
+      let fuente = consumo.fuente !== null ? consumo.fuente : "-";
+
+      let consumoHtml = `
+        <tr data-id='${consumo.id}'>
+          <td>${consumo.tipoRecurso}</td>
+          <td>${cantidadConsumida}</td>
+          <td>${consumo.unidadMedida}</td>
+          <td>${costoEstimado}</td>
+          <td>${fuente}</td>
+          <td>${fechaRegistro}</td>
+          <td>
+            <button class='btn btn-warning btn-sm' onclick='editarConsumo(${consumo.id})'>Editar</button>
+            <button class='btn btn-danger btn-sm' onclick='eliminarConsumo(${consumo.id})'>Eliminar</button>
+          </td>
+        </tr>`;
       listadoHtml += consumoHtml;
     }
+
     document.querySelector("#consumos tbody").innerHTML = listadoHtml;
+
+    // Inicializar DataTable después de cargar los datos
+    $("#consumos").DataTable();
   } catch (error) {
     console.error("Error al cargar consumos:", error);
     alert("Ocurrió un error al cargar los consumos.");
@@ -50,10 +50,11 @@ async function cargarConsumos() {
 }
 
 function getHeaders() {
+  const token = localStorage.token || "";
   return {
     Accept: "application/json",
     "Content-Type": "application/json",
-    Authorization: localStorage.token,
+    Authorization: token ? `Bearer ${token}` : "",
   };
 }
 
@@ -62,10 +63,23 @@ async function eliminarConsumo(id) {
     return;
   }
 
-  const request = await fetch("consumos/" + id, {
-    method: "DELETE",
-    headers: getHeaders(),
-  });
+  try {
+    const request = await fetch(`consumos/${id}`, {
+      method: "DELETE",
+      headers: getHeaders(),
+    });
 
-  location.reload();
+    if (request.ok) {
+      document.querySelector(`#consumos tr[data-id='${id}']`).remove();
+    } else {
+      alert("Error al eliminar el consumo.");
+    }
+  } catch (error) {
+    console.error("Error al eliminar consumo:", error);
+    alert("Ocurrió un error al eliminar el consumo.");
+  }
+}
+
+function editarConsumo(id) {
+  window.location.href = `editar-consumo.html?id=${id}`;
 }

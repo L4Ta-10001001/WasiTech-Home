@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar Consumo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h2>Editar Consumo</h2>
+    <form id="formEditarConsumo">
+      <label for="tipo">Tipo de Recurso:</label>
+      <input type="text" id="tipo" name="tipo" required />
+
+      <label for="cantidad">Cantidad Consumida:</label>
+      <input type="number" id="cantidad" name="cantidad" required />
+
+      <label for="unidad">Unidad de Medida:</label>
+      <input type="text" id="unidad" name="unidad" required />
+
+      <label for="costo">Costo Estimado:</label>
+      <input type="number" id="costo" name="costo" required />
+
+      <label for="fuente">Fuente:</label>
+      <input type="text" id="fuente" name="fuente" required />
+
+      <label for="fecha">Fecha de Registro:</label>
+      <input type="date" id="fecha" name="fecha" required />
+
+      <button type="submit">Guardar Cambios</button>
+      <button type="button" onclick="cancelarEdicion()">Cancelar</button>
+    </form>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+        if (id) {
+          await cargarDatosConsumo(id);
+        }
+      });
+
+      async function cargarDatosConsumo(id) {
+        try {
+          const request = await fetch(`consumos/${id}`, {
+            method: "GET",
+            headers: getHeaders(),
+          });
+
+          if (!request.ok) {
+            throw new Error("No se pudo obtener el consumo.");
+          }
+
+          const consumo = await request.json();
+
+          // Llenar los campos del formulario con los datos obtenidos
+          document.getElementById("tipoRecurso").value = consumo.tipoRecurso;
+          document.getElementById("cantidadConsumida").value =
+            consumo.cantidadConsumida;
+          document.getElementById("unidadMedida").value = consumo.unidadMedida;
+          document.getElementById("costoEstimado").value =
+            consumo.costoEstimado || "";
+          document.getElementById("fuente").value = consumo.fuente || "";
+          document.getElementById("fechaRegistro").value =
+            consumo.fechaRegistro.split("T")[0]; // Formato YYYY-MM-DD
+        } catch (error) {
+          console.error("Error al obtener consumo:", error);
+          alert("Error al cargar los datos del consumo.");
+        }
+      }
+
+      function getHeaders() {
+        const token = localStorage.token || "";
+        return {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        };
+      }
+
+      function cancelarEdicion() {
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>
