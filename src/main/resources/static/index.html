@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -74,7 +74,7 @@
 
         <!-- Reportes Energéticos -->
         <li class="nav-item">
-          <a class="nav-link" href="charts.html">
+          <a class="nav-link" href="charts-consumos.html">
             <i class="fas fa-fw fa-chart-line"></i>
             <span>Reportes Energéticos</span>
           </a>
@@ -123,11 +123,14 @@
           >
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Opciones Personalizadas:</h6>
-              <a class="collapse-item" href="registrarConsumo.html"
+              <a class="collapse-item" href="registrar-consumos.html"
                 >Registrar Consumo</a
               >
-              <a class="collapse-item" href="/admin/components/calculo"
+              <a class="collapse-item" href="calculo-huella.html"
                 >Cálculo de Huella</a
+              >
+              <a class="collapse-item" href="recomendaciones.html"
+                >Recomendaciones</a
               >
             </div>
           </div>
@@ -437,10 +440,22 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card-body">
-                    <div class="chart-area">
-                      <canvas id="energyAreaChart"></canvas>
+                  <!-- Resumen del Consumo Energético y Fuentes de Energía -->
+                  <div class="row">
+                    <!-- Resumen del Consumo Energético -->
+                    <div class="col-xl-8 col-lg-7">
+                      <div class="card shadow mb-4">
+                          <div class="chart-area">
+                            <canvas id="energyAreaChart"></canvas>
+                          <p class="mt-5">
+                            Este gráfico muestra el consumo energético mensual y
+                            anual, permitiendo un análisis detallado del
+                            comportamiento del consumo a lo largo del tiempo.
+                          </p>
+                        </div>
+                      </div>
                     </div>
+
                   </div>
                 </div>
               </div>
